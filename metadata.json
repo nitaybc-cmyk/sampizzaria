@@ -1,0 +1,6 @@
+{
+  "name": "Pizzaria Sam - Cardápio",
+  "description": "Cardápio digital interativo com envio de pedidos diretamente para o WhatsApp de forma simples e rápida.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
