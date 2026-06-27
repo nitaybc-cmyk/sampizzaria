@@ -14,6 +14,13 @@ interface CartModalProps {
   onRemoveItem: (id: string) => void;
   onClearCart: () => void;
   onUpdateItem?: (id: string, updates: Partial<CartItem>) => void;
+  onStartMeioAMeio?: (
+    id: string,
+    cod1: string,
+    nome1: string,
+    ing1: string,
+    size: 'normal' | 'broto'
+  ) => void;
 }
 
 export default function CartModal({
@@ -24,6 +31,7 @@ export default function CartModal({
   onRemoveItem,
   onClearCart,
   onUpdateItem,
+  onStartMeioAMeio,
 }: CartModalProps) {
   const [step, setStep] = useState<1 | 2>(1);
   const [custName, setCustName] = useState<string>('');
@@ -248,7 +256,7 @@ export default function CartModal({
 
                               {/* 'Como deseja a pizza?' options inside cart */}
                               {item.type === 'pizza' && (
-                                <div className="mt-2.5 p-2.5 bg-brand-brown/5 rounded-xl border border-brand-brown/10 text-left space-y-2 max-w-[290px]">
+                                <div className="mt-2.5 p-2.5 bg-brand-brown/5 rounded-xl border border-brand-brown/10 text-left space-y-2.5 max-w-[290px]">
                                   <span className="text-[10px] uppercase font-bold text-brand-brown/60 tracking-wider block">
                                     Como deseja a pizza?
                                   </span>
@@ -266,7 +274,7 @@ export default function CartModal({
                                           price: originalPrice,
                                         });
                                       }}
-                                      className={`flex-1 py-1 px-2 rounded-lg text-center text-[10px] md:text-xs font-bold transition border cursor-pointer ${
+                                      className={`flex-1 py-1.5 px-2 rounded-lg text-center text-[10px] md:text-xs font-bold transition border cursor-pointer ${
                                         !item.nome2
                                           ? 'bg-brand-red text-white border-transparent shadow-2xs'
                                           : 'bg-white text-brand-brown border-brand-brown/10 hover:bg-brand-brown/5'
@@ -280,21 +288,11 @@ export default function CartModal({
                                     <button
                                       type="button"
                                       onClick={() => {
-                                        const p1 = ALL_PIZZAS.find(p => p.cod === item.cod1);
-                                        const p2 = ALL_PIZZAS.find(p => p.cod !== item.cod1);
-                                        if (p1 && p2) {
-                                          onUpdateItem?.(item.id, {
-                                            cod2: p2.cod,
-                                            nome2: p2.nome,
-                                            ing2: p2.ing,
-                                            price: Math.max(
-                                              item.size === 'broto' ? p1.broto : p1.normal,
-                                              item.size === 'broto' ? p2.broto : p2.normal
-                                            ),
-                                          });
+                                        if (onStartMeioAMeio) {
+                                          onStartMeioAMeio(item.id, item.cod1, item.nome1, item.ing1, item.size || 'normal');
                                         }
                                       }}
-                                      className={`flex-1 py-1 px-2 rounded-lg text-center text-[10px] md:text-xs font-bold transition border cursor-pointer ${
+                                      className={`flex-1 py-1.5 px-2 rounded-lg text-center text-[10px] md:text-xs font-bold transition border cursor-pointer ${
                                         item.nome2
                                           ? 'bg-brand-red text-white border-transparent shadow-2xs'
                                           : 'bg-white text-brand-brown border-brand-brown/10 hover:bg-brand-brown/5'
@@ -305,40 +303,24 @@ export default function CartModal({
                                     </button>
                                   </div>
 
-                                  {/* Dropdown select when Meio a Meio (2 sabores) is selected */}
-                                  {item.nome2 && (
-                                    <div className="space-y-1 pt-1 border-t border-brand-brown/10">
-                                      <label htmlFor={`select-flavor-2-${item.id}`} className="text-[9px] font-extrabold text-brand-red uppercase tracking-wider block">
-                                        Escolha o 2º Sabor:
-                                      </label>
-                                      <select
-                                        id={`select-flavor-2-${item.id}`}
-                                        value={item.cod2 || ''}
-                                        onChange={(e) => {
-                                          const val = e.target.value;
-                                          const p1 = ALL_PIZZAS.find(p => p.cod === item.cod1);
-                                          const p2 = ALL_PIZZAS.find(p => p.cod === val);
-                                          if (p1 && p2) {
-                                            onUpdateItem?.(item.id, {
-                                              cod2: p2.cod,
-                                              nome2: p2.nome,
-                                              ing2: p2.ing,
-                                              price: Math.max(
-                                                item.size === 'broto' ? p1.broto : p1.normal,
-                                                item.size === 'broto' ? p2.broto : p2.normal
-                                              ),
-                                            });
+                                  {/* Change 2nd flavor button when Meio a Meio (2 sabores) is active */}
+                                  {item.nome2 ? (
+                                    <div className="pt-1 text-center border-t border-brand-brown/10">
+                                      <button
+                                        type="button"
+                                        onClick={() => {
+                                          if (onStartMeioAMeio) {
+                                            onStartMeioAMeio(item.id, item.cod1, item.nome1, item.ing1, item.size || 'normal');
                                           }
                                         }}
-                                        className="w-full bg-white text-brand-brown border border-brand-brown/15 rounded-lg px-2 py-1 text-[11px] font-bold focus:outline-none cursor-pointer"
+                                        className="inline-flex items-center gap-1.5 text-[10px] bg-brand-gold hover:bg-brand-gold/80 text-brand-brown font-black py-1 px-3 rounded-full cursor-pointer transition-all shadow-2xs hover:scale-102"
                                       >
-                                        {ALL_PIZZAS.filter(p => p.cod !== item.cod1).map((p) => (
-                                          <option key={p.cod} value={p.cod}>
-                                            #{p.cod} {p.nome} — ({formatMoney(item.size === 'broto' ? p.broto : p.normal)})
-                                          </option>
-                                        ))}
-                                      </select>
+                                        🔄 Mudar 2º Sabor
+                                      </button>
                                     </div>
+                                  ) : (
+                                    /* If Meio a Meio button was clicked but has no second flavor yet */
+                                    null
                                   )}
                                 </div>
                               )}

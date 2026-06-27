@@ -9,6 +9,15 @@ interface MenuCardProps {
   onAddPizza?: (pizza: Pizza, size: 'normal' | 'broto') => void;
   onOpenHalf?: (pizza: Pizza, category: string) => void;
   onAddBeirute?: (beirute: Beirute) => void;
+  activeSelection?: {
+    cartItemId: string;
+    cod1: string;
+    nome1: string;
+    ing1: string;
+    size: 'normal' | 'broto';
+    isSweet: boolean;
+  } | null;
+  onSelectSecondFlavor?: (pizza: Pizza) => void;
 }
 
 export default function MenuCard({
@@ -18,6 +27,8 @@ export default function MenuCard({
   onAddPizza,
   onOpenHalf,
   onAddBeirute,
+  activeSelection,
+  onSelectSecondFlavor,
 }: MenuCardProps) {
   // Format local currency (Real BRL)
   const formatMoney = (val: number) => {
@@ -28,9 +39,26 @@ export default function MenuCard({
   };
 
   if (pizza && category) {
+    const isEditingMeio = !!activeSelection;
+    const isCompatible = isEditingMeio && (
+      (activeSelection!.isSweet && category === 'doces') ||
+      (!activeSelection!.isSweet && category !== 'doces')
+    );
+
+    let cardClass = "flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 md:p-5 bg-white border rounded-2xl transition duration-200 shadow-xs";
+    if (isEditingMeio) {
+      if (isCompatible) {
+        cardClass += " border-brand-gold bg-brand-gold/[0.03] shadow-md scale-[1.01] hover:border-brand-red/50";
+      } else {
+        cardClass += " opacity-40 border-brand-brown/5 cursor-not-allowed grayscale-[30%]";
+      }
+    } else {
+      cardClass += " border-brand-brown/5 hover:border-brand-red/30 hover:shadow-sm";
+    }
+
     return (
       <div 
-        className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 md:p-5 bg-white border border-brand-brown/5 hover:border-brand-red/30 rounded-2xl transition duration-200 shadow-xs hover:shadow-sm"
+        className={cardClass}
         id={`menu-item-${pizza.cod}`}
       >
         {/* LEFT COLUMN: Name, ingredients and badges */}
@@ -56,30 +84,58 @@ export default function MenuCard({
           </p>
         </div>
 
-        {/* RIGHT COLUMN: Two beautiful explicit choice buttons */}
-        <div className="flex flex-row sm:flex-col gap-2 shrink-0 w-full sm:w-[150px]">
-          {/* Add Pizza Inteira button */}
-          <button
-            onClick={() => onAddPizza?.(pizza, 'normal')}
-            className="flex-1 flex flex-col items-center justify-center bg-brand-brown/5 hover:bg-brand-red text-brand-brown hover:text-white py-2 px-3 rounded-xl cursor-pointer transition-all border border-transparent shadow-2xs hover:shadow-sm group/inteira"
-            id={`add-normal-${pizza.cod}`}
-            title="Adicionar Pizza Inteira ao pedido"
-          >
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-brown/50 group-hover/inteira:text-white/80">Pizza Inteira</span>
-            <span className="text-xs font-black font-serif mt-0.5">{formatMoney(pizza.normal)}</span>
-          </button>
+        {/* RIGHT COLUMN: Two beautiful explicit choice buttons OR single 2nd flavor button */}
+        {isEditingMeio ? (
+          <div className="flex flex-row sm:flex-col gap-2 shrink-0 w-full sm:w-[150px]">
+            {isCompatible ? (
+              <button
+                onClick={() => onSelectSecondFlavor?.(pizza)}
+                className="w-full flex-1 min-h-[76px] py-3 px-3 flex flex-col items-center justify-center bg-brand-red hover:bg-brand-red-dark text-cream rounded-xl cursor-pointer transition-all border border-transparent shadow-xs hover:shadow-md hover:scale-[1.02]"
+                id={`select-2nd-${pizza.cod}`}
+                title={`Adicionar ${pizza.nome} como segundo sabor`}
+              >
+                <span className="text-[9px] font-extrabold uppercase tracking-widest text-cream/80">
+                  Meio a Meio
+                </span>
+                <span className="text-[11px] font-black text-center mt-1 leading-tight uppercase tracking-wider">
+                  + Adicionar como 2º Sabor
+                </span>
+              </button>
+            ) : (
+              <div
+                className="w-full flex-1 min-h-[76px] py-3 px-3 flex flex-col items-center justify-center bg-brand-brown/5 text-brand-brown/50 rounded-xl border border-dashed border-brand-brown/10 select-none cursor-not-allowed"
+              >
+                <span className="text-[9px] font-bold uppercase tracking-wider text-center leading-tight">
+                  Incompatível com o 1º sabor
+                </span>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="flex flex-row sm:flex-col gap-2 shrink-0 w-full sm:w-[150px]">
+            {/* Add Pizza Inteira button */}
+            <button
+              onClick={() => onAddPizza?.(pizza, 'normal')}
+              className="flex-1 flex flex-col items-center justify-center bg-brand-brown/5 hover:bg-brand-red text-brand-brown hover:text-white py-2 px-3 rounded-xl cursor-pointer transition-all border border-transparent shadow-2xs hover:shadow-sm group/inteira"
+              id={`add-normal-${pizza.cod}`}
+              title="Adicionar Pizza Inteira ao pedido"
+            >
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-brown/50 group-hover/inteira:text-white/80">Pizza Inteira</span>
+              <span className="text-xs font-black font-serif mt-0.5">{formatMoney(pizza.normal)}</span>
+            </button>
 
-          {/* Add Broto button */}
-          <button
-            onClick={() => onAddPizza?.(pizza, 'broto')}
-            className="flex-1 flex flex-col items-center justify-center bg-brand-brown/5 hover:bg-brand-red text-brand-brown hover:text-white py-2 px-3 rounded-xl cursor-pointer transition-all border border-transparent shadow-2xs hover:shadow-sm group/broto"
-            id={`add-broto-${pizza.cod}`}
-            title="Adicionar Pizza Broto ao pedido"
-          >
-            <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-brown/50 group-hover/broto:text-white/80">Broto</span>
-            <span className="text-xs font-black font-serif mt-0.5">{formatMoney(pizza.broto)}</span>
-          </button>
-        </div>
+            {/* Add Broto button */}
+            <button
+              onClick={() => onAddPizza?.(pizza, 'broto')}
+              className="flex-1 flex flex-col items-center justify-center bg-brand-brown/5 hover:bg-brand-red text-brand-brown hover:text-white py-2 px-3 rounded-xl cursor-pointer transition-all border border-transparent shadow-2xs hover:shadow-sm group/broto"
+              id={`add-broto-${pizza.cod}`}
+              title="Adicionar Pizza Broto ao pedido"
+            >
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-brown/50 group-hover/broto:text-white/80">Broto</span>
+              <span className="text-xs font-black font-serif mt-0.5">{formatMoney(pizza.broto)}</span>
+            </button>
+          </div>
+        )}
       </div>
     );
   }

@@ -45,6 +45,73 @@ export default function App() {
   // Search filter
   const [searchQuery, setSearchQuery] = useState<string>('');
 
+  // Active selection for Meio a Meio (half and half)
+  const [activeSelection, setActiveSelection] = useState<{
+    cartItemId: string;
+    cod1: string;
+    nome1: string;
+    ing1: string;
+    size: 'normal' | 'broto';
+    isSweet: boolean;
+  } | null>(null);
+
+  const handleStartMeioAMeio = (
+    cartItemId: string,
+    cod1: string,
+    nome1: string,
+    ing1: string,
+    size: 'normal' | 'broto'
+  ) => {
+    const isSweet = DOCES.some((d) => d.cod === cod1);
+    setActiveSelection({
+      cartItemId,
+      cod1,
+      nome1,
+      ing1,
+      size,
+      isSweet,
+    });
+    setIsCartOpen(false);
+
+    // Scroll automatically to the category section
+    const targetSection = isSweet ? 'doces' : 'tradicionais';
+    setTimeout(() => {
+      handleScrollToSection(targetSection);
+    }, 150);
+  };
+
+  const handleSelectSecondFlavor = (pizza2: Pizza) => {
+    if (!activeSelection) return;
+
+    setCart((prev) =>
+      prev.map((item) => {
+        if (item.id === activeSelection.cartItemId) {
+          const allPizzas = [...TRADICIONAIS, ...ESPECIAIS, ...DOCES];
+          const p1 = allPizzas.find((p) => p.cod === activeSelection.cod1);
+          if (!p1) return item;
+
+          const size = activeSelection.size;
+          const p1Price = size === 'broto' ? p1.broto : p1.normal;
+          const p2Price = size === 'broto' ? pizza2.broto : pizza2.normal;
+          const finalPrice = Math.max(p1Price, p2Price);
+
+          return {
+            ...item,
+            cod2: pizza2.cod,
+            nome2: pizza2.nome,
+            ing2: pizza2.ing,
+            price: finalPrice,
+          };
+        }
+        return item;
+      })
+    );
+
+    setActiveSelection(null);
+    setIsCartOpen(true);
+    triggerAdditionAnimation();
+  };
+
   // Persist cart items in localStorage
   useEffect(() => {
     localStorage.setItem('sam_pizza_cart', JSON.stringify(cart));
@@ -272,6 +339,33 @@ export default function App() {
         </div>
       </nav>
 
+      {/* ACTIVE SELECTION FLOATING HEADER BANNER */}
+      <AnimatePresence>
+        {activeSelection && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="bg-brand-gold text-brand-brown py-3 px-4 border-b border-brand-brown/10 font-sans shadow-inner overflow-hidden"
+          >
+            <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <span className="text-xl shrink-0">🍕</span>
+                <p className="text-xs md:text-sm font-extrabold leading-tight text-center sm:text-left">
+                  Modo Meio a Meio: Selecione o 2º sabor ({activeSelection.isSweet ? 'Doce' : 'Salgado'}) para combinar com <span className="underline italic">"{activeSelection.nome1}"</span> ({activeSelection.size === 'broto' ? 'Broto' : 'Grande'}).
+                </p>
+              </div>
+              <button
+                onClick={() => setActiveSelection(null)}
+                className="bg-brand-red text-cream hover:bg-brand-red-dark text-xxs font-black uppercase tracking-wider py-1.5 px-4 rounded-full cursor-pointer transition shadow-2xs hover:scale-102"
+              >
+                Cancelar
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* MAIN CONTAINER CONTENT */}
       <main className="max-w-6xl mx-auto px-4 md:px-6 py-6 flex-1 w-full space-y-16">
         
@@ -300,6 +394,8 @@ export default function App() {
                   pizza={pizza}
                   category="tradicionais"
                   onAddPizza={handleAddPizza}
+                  activeSelection={activeSelection}
+                  onSelectSecondFlavor={handleSelectSecondFlavor}
                 />
               ))}
             </div>
@@ -331,6 +427,8 @@ export default function App() {
                   pizza={pizza}
                   category="especiais"
                   onAddPizza={handleAddPizza}
+                  activeSelection={activeSelection}
+                  onSelectSecondFlavor={handleSelectSecondFlavor}
                 />
               ))}
             </div>
@@ -362,6 +460,8 @@ export default function App() {
                   pizza={pizza}
                   category="doces"
                   onAddPizza={handleAddPizza}
+                  activeSelection={activeSelection}
+                  onSelectSecondFlavor={handleSelectSecondFlavor}
                 />
               ))}
             </div>
@@ -520,6 +620,7 @@ export default function App() {
         onRemoveItem={handleRemoveItem}
         onClearCart={handleClearCart}
         onUpdateItem={handleUpdateItem}
+        onStartMeioAMeio={handleStartMeioAMeio}
       />
     </div>
   );
