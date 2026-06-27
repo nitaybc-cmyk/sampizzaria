@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Trash2, ShoppingBag, Plus, Minus, Send, Phone, MapPin, CreditCard, AlertCircle } from 'lucide-react';
 import { CartItem, Bairro } from '../types';
@@ -43,6 +43,17 @@ export default function CartModal({
   const [needsChange, setNeedsChange] = useState<boolean>(false);
   const [changeFor, setChangeFor] = useState<string>('');
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  useEffect(() => {
+    if (errorMessage) {
+      setTimeout(() => {
+        const errorEl = document.getElementById('validation-error-message');
+        if (errorEl) {
+          errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 100);
+    }
+  }, [errorMessage]);
 
   const handleClose = () => {
     setStep(1);
@@ -192,7 +203,7 @@ export default function CartModal({
             )}
 
             {/* Content list & forms */}
-            <div className="flex-1 overflow-y-auto p-5 space-y-6">
+            <div className="flex-1 overflow-y-auto p-5 space-y-6" style={{ paddingBottom: '120px' }}>
               {cartItems.length === 0 ? (
                 <div className="text-center py-20 flex flex-col items-center justify-center space-y-4">
                   <div className="bg-brand-brown/5 p-6 rounded-full">
@@ -581,11 +592,27 @@ export default function CartModal({
                   </div>
                 </>
               )}
+
+              {/* Validation Error Alerts instead of browser popups */}
+              {errorMessage && (
+                <motion.div
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="flex items-start gap-2 bg-red-50 border border-brand-red/30 p-3 rounded-xl text-xs font-bold text-brand-red leading-relaxed shadow-2xs mt-4"
+                  id="validation-error-message"
+                >
+                  <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                  <div className="flex-1">
+                    <span className="block font-black uppercase text-[10px] tracking-wider mb-0.5">Aviso:</span>
+                    {errorMessage}
+                  </div>
+                </motion.div>
+              )}
             </div>
 
             {/* Footer Summary & Navigation Buttons */}
             {cartItems.length > 0 && (
-              <div className="p-5 border-t border-brand-brown/10 bg-cream-2/30 space-y-3 shrink-0 h-[149px] w-[363px]">
+              <div className="p-5 border-t border-brand-brown/10 bg-cream-2/30 space-y-3 shrink-0 w-full">
                 {/* Calculations summary lines */}
                 <div className="space-y-1.5 text-xs">
                   <div className="flex justify-between text-brand-brown/70 font-sans">
@@ -603,22 +630,6 @@ export default function CartModal({
                     <span>{formatMoney(step === 2 ? total : subtotal)}</span>
                   </div>
                 </div>
-
-                {/* Validation Error Alerts instead of browser popups */}
-                {errorMessage && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="flex items-start gap-2 bg-red-50 border border-brand-red/30 p-3 rounded-xl text-xs font-bold text-brand-red leading-relaxed shadow-2xs"
-                    id="validation-error-message"
-                  >
-                    <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
-                    <div className="flex-1">
-                      <span className="block font-black uppercase text-[10px] tracking-wider mb-0.5">Aviso:</span>
-                      {errorMessage}
-                    </div>
-                  </motion.div>
-                )}
 
                 {/* Step Action buttons */}
                 {step === 1 ? (
