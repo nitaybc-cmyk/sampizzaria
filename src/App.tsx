@@ -27,7 +27,6 @@ const CATEGORIES = [
   { id: 'beirutes', label: 'Beirutes' },
   { id: 'bebidas', label: 'Bebidas' },
   { id: 'promocoes', label: 'Promoções' },
-  { id: 'contato', label: 'Atendimento' },
 ];
 
 export default function App() {
@@ -334,7 +333,7 @@ export default function App() {
       <Header />
 
       {/* STICKY NAV SYSTEM */}
-      <nav className="sticky top-0 z-40 bg-cream/95 backdrop-blur-md border-b border-brand-brown/10 shadow-sm py-2 px-1 md:py-3 animate-fade-in">
+      <nav translate="no" className="sticky top-0 z-40 bg-cream/95 backdrop-blur-md border-b border-brand-brown/10 shadow-sm py-2 px-1 md:py-3 animate-fade-in notranslate">
         <div className="max-w-6xl mx-auto px-4 md:px-6 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
           {/* Categories Horizontal Scroll */}
           <div className="flex items-center gap-1.5 overflow-x-auto whitespace-nowrap py-0.5 scrollbar-none scroll-smooth flex-1 min-w-0">

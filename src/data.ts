@@ -175,7 +175,7 @@ export const CONTATO: ContactInfo = {
   nome: "Pizzaria Sam",
   endereco: "Rua São Cristóvão, 115 - Jd. São Francisco - Centro de Caieiras (ao lado do posto BR)",
   telefones: "4442-1588 / 4442-1709",
-  whatsapp: "5511992448741",
+  whatsapp: "5511992448741", // Use real international format
   instagram: "@pizzariasam_",
   facebook: "Pizzaria Sam",
   horario: "Segunda: 18h às 23h | Terça: Fechado | Quarta a Domingo: 18h às 23h30",
