@@ -1,4 +1,4 @@
-import { Pizza, Beirute, Bairro, ContactInfo } from './types';
+import { Pizza, Beirute, Bebida, Bairro, ContactInfo } from './types';
 
 export const BAIRROS: Bairro[] = [
   { bairro: "Centro", taxa: 5.0 },
@@ -136,6 +136,39 @@ export const BEIRUTES: Beirute[] = [
   { cod: "102", nome: "Filet de Frango", ing: "Filet de frango, cheddar, mussarela, presunto, alface, tomate, maionese, ovo e bacon", preco: 45.0 },
   { cod: "103", nome: "Filet Mignon", ing: "Filet mignon, cheddar, mussarela, presunto, alface, tomate, maionese, ovo e bacon", preco: 47.0 },
   { cod: "104", nome: "Peito de Peru", ing: "Peito de peru, cheddar, mussarela, presunto, alface, tomate, maionese, ovo e bacon", preco: 45.0 }
+];
+
+export const BEBIDAS: Bebida[] = [
+  // 2 LTS
+  { cod: "201", nome: "Coca-Cola 2 Litros", subcategoria: "2 LTS", preco: 16.0 },
+  { cod: "202", nome: "Fanta Laranja 2 Litros", subcategoria: "2 LTS", preco: 16.0 },
+  { cod: "203", nome: "Fanta Uva 2 Litros", subcategoria: "2 LTS", preco: 16.0 },
+  { cod: "204", nome: "Sprite 2 Litros", subcategoria: "2 LTS", preco: 16.0 },
+  { cod: "205", nome: "Kuat 2 Litros", subcategoria: "2 LTS", preco: 16.0 },
+  { cod: "206", nome: "Guaraná Antarctica 2 Litros", subcategoria: "2 LTS", preco: 16.0 },
+  { cod: "207", nome: "Coca-Cola Zero 2 Litros", subcategoria: "2 LTS", preco: 17.0 },
+
+  // 600ML
+  { cod: "208", nome: "Coca-Cola 600ml", subcategoria: "600ML", preco: 9.0 },
+  { cod: "209", nome: "Fanta Laranja 600ml", subcategoria: "600ML", preco: 9.0 },
+  { cod: "210", nome: "Fanta Uva 600ml", subcategoria: "600ML", preco: 9.0 },
+  { cod: "211", nome: "Coca-Cola Zero 600ml", subcategoria: "600ML", preco: 10.0 },
+
+  // LATA
+  { cod: "212", nome: "Coca-Cola Lata", subcategoria: "LATA", preco: 8.0 },
+  { cod: "213", nome: "Fanta Laranja Lata", subcategoria: "LATA", preco: 8.0 },
+  { cod: "214", nome: "Fanta Uva Lata", subcategoria: "LATA", preco: 8.0 },
+  { cod: "215", nome: "Schweppes Lata", subcategoria: "LATA", preco: 8.0 },
+  { cod: "216", nome: "Coca-Cola Zero Lata", subcategoria: "LATA", preco: 9.0 },
+
+  // Sucos e Águas
+  { cod: "217", nome: "Suco Del Valle 1 Litro", subcategoria: "Sucos e Águas", preco: 16.0 },
+  { cod: "218", nome: "Suco Del Valle Lata 290ml", subcategoria: "Sucos e Águas", preco: 8.0 },
+  { cod: "219", nome: "Água sem Gás", subcategoria: "Sucos e Águas", preco: 4.0 },
+  { cod: "220", nome: "Água com Gás", subcategoria: "Sucos e Águas", preco: 5.0 },
+
+  // Cervejas
+  { cod: "221", nome: "Cerveja Lata Skol 350ml", subcategoria: "Cervejas", preco: 8.0 }
 ];
 
 export const CONTATO: ContactInfo = {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { TRADICIONAIS, ESPECIAIS, DOCES, BEIRUTES, CONTATO } from './data';
-import { Pizza, Beirute, CartItem } from './types';
+import { TRADICIONAIS, ESPECIAIS, DOCES, BEIRUTES, BEBIDAS, CONTATO } from './data';
+import { Pizza, Beirute, Bebida, CartItem } from './types';
 import Header from './components/Header';
 import MenuCard from './components/MenuCard';
 import CartModal from './components/CartModal';
@@ -25,6 +25,7 @@ const CATEGORIES = [
   { id: 'especiais', label: 'Especiais' },
   { id: 'doces', label: 'Doces' },
   { id: 'beirutes', label: 'Beirutes' },
+  { id: 'bebidas', label: 'Bebidas' },
   { id: 'promocoes', label: 'Promoções' },
   { id: 'contato', label: 'Atendimento' },
 ];
@@ -223,6 +224,34 @@ export default function App() {
     triggerAdditionAnimation();
   };
 
+  const handleAddBebida = (bebida: Bebida) => {
+    setCart((prev) => {
+      const itemKey = `bebida-${bebida.cod}`;
+      const existingIdx = prev.findIndex((item) => item.id === itemKey);
+
+      if (existingIdx !== -1) {
+        const updated = [...prev];
+        updated[existingIdx].quantity += 1;
+        return updated;
+      }
+
+      return [
+        ...prev,
+        {
+          id: itemKey,
+          type: 'bebida',
+          cod1: bebida.cod,
+          nome1: bebida.nome,
+          ing1: '',
+          price: bebida.preco,
+          quantity: 1,
+        },
+      ];
+    });
+
+    triggerAdditionAnimation();
+  };
+
   const handleUpdateQty = (id: string, delta: number) => {
     setCart((prev) => {
       return prev
@@ -280,10 +309,21 @@ export default function App() {
     );
   };
 
+  const filterBebidaList = (list: Bebida[]) => {
+    if (!query) return list;
+    return list.filter(
+      (b) => 
+        normalize(b.nome).includes(query) || 
+        normalize(b.subcategoria).includes(query) || 
+        b.cod.includes(query)
+    );
+  };
+
   const filteredTradicionais = filterPizzaList(TRADICIONAIS);
   const filteredEspeciais = filterPizzaList(ESPECIAIS);
   const filteredDoces = filterPizzaList(DOCES);
   const filteredBeirutes = filterBeiruteList(BEIRUTES);
+  const filteredBebidas = filterBebidaList(BEBIDAS);
 
   const cartTotalItems = cart.reduce((count, item) => count + item.quantity, 0);
   const cartTotalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -379,7 +419,7 @@ export default function App() {
             <div className="flex-1 h-0.5 bg-brand-brown/10 rounded" />
           </div>
           <p className="text-brand-brown/65 text-sm max-w-2xl font-medium leading-relaxed italic">
-            Todas as pizzas contêm molho de tomate, azeitona e orégano de primeira linha. Massa fina e crocante artesanal, aberta na hora. Peça meio a meio sem custo adicional.
+            Todas as pizzas são feitas com nossa tradicional massa fina e crocante e acompanham molho de tomate, orégano e azeitonas.
           </p>
 
           {filteredTradicionais.length === 0 ? (
@@ -495,6 +535,52 @@ export default function App() {
                   onAddBeirute={handleAddBeirute}
                 />
               ))}
+            </div>
+          )}
+        </section>
+
+        {/* BEBIDAS SECTION */}
+        <section id="bebidas" className="scroll-mt-12 space-y-6">
+          <div className="flex items-center gap-4">
+            <h2 className="font-serif font-black text-3xl md:text-4xl italic text-brand-red-dark flex items-center gap-2">
+              <ShoppingBag className="w-7 h-7 text-brand-red" />
+              Bebidas
+            </h2>
+            <div className="flex-1 h-0.5 bg-brand-brown/10 rounded" />
+          </div>
+          <p className="text-brand-brown/65 text-sm max-w-2xl font-medium leading-relaxed italic">
+            Bebidas geladas, refrigerantes, sucos naturais, águas minerais e cervejas selecionadas para acompanhar sua pizza.
+          </p>
+
+          {filteredBebidas.length === 0 ? (
+            <div className="py-12 text-center text-brand-brown/50 bg-white/40 border border-dashed border-brand-brown/10 rounded-2xl text-xs md:text-sm">
+              Nenhuma bebida encontrada para "{searchQuery}".
+            </div>
+          ) : (
+            <div className="space-y-8">
+              {['2 LTS', '600ML', 'LATA', 'Sucos e Águas', 'Cervejas'].map((subcat) => {
+                const subcatItems = filteredBebidas.filter(b => b.subcategoria === subcat);
+                if (subcatItems.length === 0) return null;
+
+                return (
+                  <div key={subcat} className="space-y-3.5">
+                    <h3 className="font-serif font-bold text-lg md:text-xl text-brand-brown/80 border-b border-brand-brown/10 pb-1.5 flex items-center gap-2 select-none">
+                      <span className="w-1.5 h-4 bg-brand-gold rounded-xs" />
+                      {subcat}
+                    </h3>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">
+                      {subcatItems.map((bebida) => (
+                        <MenuCard
+                          key={bebida.cod}
+                          bebida={bebida}
+                          category="bebidas"
+                          onAddBebida={handleAddBebida}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
         </section>

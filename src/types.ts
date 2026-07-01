@@ -13,6 +13,13 @@ export interface Beirute {
   preco: number;
 }
 
+export interface Bebida {
+  cod: string;
+  nome: string;
+  subcategoria: string;
+  preco: number;
+}
+
 export interface Bairro {
   bairro: string;
   taxa: number;
@@ -30,7 +37,7 @@ export interface ContactInfo {
   slogan: string;
 }
 
-export type CartItemType = 'pizza' | 'pizza-half' | 'beirute';
+export type CartItemType = 'pizza' | 'pizza-half' | 'beirute' | 'bebida';
 
 export interface CartItem {
   id: string; // unique cart item id

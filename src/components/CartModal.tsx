@@ -110,10 +110,12 @@ export default function CartModal({
       }
       
       msg += `• *${item.quantity}x* ${partsLabel}${sizeLabel} — ${formatMoney(item.price * item.quantity)}\n`;
-      if (item.ing2) {
-        msg += `   _Ingredientes: ${item.ing1} | ${item.ing2}_\n`;
-      } else {
-        msg += `   _Ingredientes: ${item.ing1}_\n`;
+      if (item.type !== 'bebida') {
+        if (item.ing2) {
+          msg += `   _Ingredientes: ${item.ing1} | ${item.ing2}_\n`;
+        } else if (item.ing1) {
+          msg += `   _Ingredientes: ${item.ing1}_\n`;
+        }
       }
       if (item.observations && item.observations.trim()) {
         msg += `   *Obs:* _"${item.observations.trim()}"_\n`;
@@ -256,11 +258,13 @@ export default function CartModal({
                                   </span>
                                 ) : null}
                               </h4>
-                              <p className="text-[11px] text-brand-brown/60 italic font-sans leading-normal line-clamp-1">
-                                {item.nome2 
-                                  ? `${item.ing1} | ${item.ing2}` 
-                                  : item.ing1}
-                              </p>
+                              {item.type !== 'bebida' && (
+                                <p className="text-[11px] text-brand-brown/60 italic font-sans leading-normal line-clamp-1">
+                                  {item.nome2 
+                                    ? `${item.ing1} | ${item.ing2}` 
+                                    : item.ing1}
+                                </p>
+                              )}
                               <span className="text-xs font-extrabold text-brand-red block">
                                 {formatMoney(item.price)}
                               </span>

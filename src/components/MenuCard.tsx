@@ -1,14 +1,16 @@
-import { Pizza, Beirute } from '../types';
+import { Pizza, Beirute, Bebida } from '../types';
 import { Plus, Sparkles } from 'lucide-react';
 
 interface MenuCardProps {
   key?: string;
   pizza?: Pizza;
   beirute?: Beirute;
-  category?: 'tradicionais' | 'especiais' | 'doces' | 'beirutes';
+  bebida?: Bebida;
+  category?: 'tradicionais' | 'especiais' | 'doces' | 'beirutes' | 'bebidas';
   onAddPizza?: (pizza: Pizza, size: 'normal' | 'broto') => void;
   onOpenHalf?: (pizza: Pizza, category: string) => void;
   onAddBeirute?: (beirute: Beirute) => void;
+  onAddBebida?: (bebida: Bebida) => void;
   activeSelection?: {
     cartItemId: string;
     cod1: string;
@@ -23,10 +25,12 @@ interface MenuCardProps {
 export default function MenuCard({
   pizza,
   beirute,
+  bebida,
   category,
   onAddPizza,
   onOpenHalf,
   onAddBeirute,
+  onAddBebida,
   activeSelection,
   onSelectSecondFlavor,
 }: MenuCardProps) {
@@ -157,7 +161,7 @@ export default function MenuCard({
               Beirute {beirute.nome}
             </h3>
           </div>
-          <p className="text-[11px] md:text-xs text-brand-brown/70 leading-normal font-sans italic mt-1 line-clamp-2 md:line-clamp-3 select-none">
+          <p className="text-[11px] md:text-xs text-brand-brown/70 leading-normal font-sans italic mt-1 select-none whitespace-normal break-words">
             {beirute.ing}
           </p>
         </div>
@@ -178,6 +182,54 @@ export default function MenuCard({
             className="flex items-center justify-center gap-1 bg-brand-red hover:bg-brand-red-dark text-cream font-bold text-[10px] md:text-xs py-1.5 px-2.5 rounded-xl cursor-pointer transition-colors shadow-2xs"
             id={`add-beirute-${beirute.cod}`}
             title="Adicionar Beirute ao pedido"
+          >
+            <Plus className="w-3 h-3 shrink-0" />
+            Adicionar
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (bebida) {
+    return (
+      <div 
+        className="flex gap-4 items-center bg-white border border-brand-brown/5 hover:border-brand-red-dark/30 rounded-2xl p-3 md:p-4 transition-all duration-200 shadow-xs hover:shadow-sm"
+        id={`menu-item-bebida-${bebida.cod}`}
+      >
+        {/* CENTER COLUMN: Info */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            {/* Number Code Badge */}
+            <span className="text-[10px] font-mono font-black text-brand-brown bg-brand-gold px-1.5 py-0.5 rounded-md select-none shadow-2xs">
+              #{bebida.cod}
+            </span>
+            <h3 className="font-sans font-extrabold text-sm md:text-base text-brand-brown leading-tight select-none">
+              {bebida.nome}
+            </h3>
+          </div>
+          {/* Subcategory badge */}
+          <span className="inline-block mt-1.5 text-[9px] uppercase tracking-wider font-extrabold text-brand-brown/50 bg-brand-brown/5 px-2.5 py-0.5 rounded-full select-none">
+            {bebida.subcategoria}
+          </span>
+        </div>
+
+        {/* RIGHT COLUMN: Price & Action */}
+        <div className="flex flex-col gap-1 w-[125px] md:w-[145px] shrink-0 text-center">
+          <div className="mb-1 leading-none">
+            <span className="block text-[8px] uppercase font-bold text-brand-brown/40 tracking-wider">
+              Preço
+            </span>
+            <span className="font-serif font-black text-xs md:text-sm text-brand-red-dark">
+              {formatMoney(bebida.preco)}
+            </span>
+          </div>
+
+          <button
+            onClick={() => onAddBebida?.(bebida)}
+            className="flex items-center justify-center gap-1 bg-brand-red hover:bg-brand-red-dark text-cream font-bold text-[10px] md:text-xs py-1.5 px-2.5 rounded-xl cursor-pointer transition-colors shadow-2xs"
+            id={`add-bebida-${bebida.cod}`}
+            title="Adicionar Bebida ao pedido"
           >
             <Plus className="w-3 h-3 shrink-0" />
             Adicionar
