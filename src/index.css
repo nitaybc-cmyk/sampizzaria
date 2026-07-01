@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Work+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Playball&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Work Sans", system-ui, -apple-system, sans-serif;
-  --font-serif: "Fraunces", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-serif: "Montserrat", sans-serif;
+  --font-cursive: "Playball", cursive;
   
   --color-cream: #FBF3E4;
   --color-cream-2: #F4E8D3;
-  --color-brand-red: #C8102E;
-  --color-brand-red-dark: #9C0C24;
+  --color-brand-red: #E51B1B;
+  --color-brand-red-dark: #C01212;
   --color-brand-brown: #2E1A0F;
   --color-brand-green: #3D5C3A;
   --color-brand-gold: #E8A33D;

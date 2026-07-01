@@ -342,10 +342,10 @@ export default function App() {
               <button
                 key={cat.id}
                 onClick={() => handleScrollToSection(cat.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all cursor-pointer ${
+                className={`px-4 py-2 rounded-full text-[10px] md:text-[11px] font-bold uppercase tracking-wider transition-all cursor-pointer font-serif ${
                   activeCategory === cat.id
-                    ? 'bg-brand-red text-cream shadow-sm scale-102 font-black'
-                    : 'bg-white/70 text-brand-brown/90 border border-brand-brown/10 hover:bg-brand-brown/5'
+                    ? 'bg-brand-red text-cream shadow-sm scale-102 font-extrabold'
+                    : 'bg-neutral-100 text-neutral-600 border border-neutral-200 hover:bg-neutral-200/60 hover:text-neutral-900'
                 }`}
                 id={`nav-${cat.id}-btn`}
               >
@@ -412,13 +412,13 @@ export default function App() {
         {/* TRADICIONAIS SECTION */}
         <section id="tradicionais" className="scroll-mt-12 space-y-4">
           <div className="flex items-center gap-4">
-            <h2 className="font-serif font-black text-3xl md:text-4xl italic text-brand-red-dark flex items-center gap-2">
-              <PizzaIcon className="w-8 h-8 text-brand-red rotate-12" />
+            <h2 className="font-serif font-extrabold text-xl md:text-2xl tracking-tight text-brand-brown uppercase flex items-center gap-2">
+              <PizzaIcon className="w-6 h-6 text-brand-red" />
               Pizzas Tradicionais
             </h2>
-            <div className="flex-1 h-0.5 bg-brand-brown/10 rounded" />
+            <div className="flex-1 h-px bg-brand-brown/10" />
           </div>
-          <p className="text-brand-brown/65 text-sm max-w-2xl font-medium leading-relaxed italic">
+          <p className="text-neutral-600 text-xs md:text-sm max-w-2xl font-light leading-relaxed">
             Todas as pizzas são feitas com nossa tradicional massa fina e crocante e acompanham molho de tomate, orégano e azeitonas.
           </p>
 
@@ -445,13 +445,13 @@ export default function App() {
         {/* ESPECIAIS SECTION */}
         <section id="especiais" className="scroll-mt-12 space-y-4">
           <div className="flex items-center gap-4">
-            <h2 className="font-serif font-black text-3xl md:text-4xl italic text-brand-red-dark flex items-center gap-2">
-              <Sparkles className="w-7 h-7 text-brand-red fill-brand-red/15" />
+            <h2 className="font-serif font-extrabold text-xl md:text-2xl tracking-tight text-brand-brown uppercase flex items-center gap-2">
+              <Sparkles className="w-6 h-6 text-brand-red fill-brand-red/10" />
               Pizzas Especiais
             </h2>
-            <div className="flex-1 h-0.5 bg-brand-brown/10 rounded" />
+            <div className="flex-1 h-px bg-brand-brown/10" />
           </div>
-          <p className="text-brand-brown/65 text-sm max-w-2xl font-medium leading-relaxed italic">
+          <p className="text-neutral-600 text-xs md:text-sm max-w-2xl font-light leading-relaxed">
             Combinações premium exclusivas da Pizzaria Sam, elaboradas com ingredientes gourmet selecionados, queijos nobres e embutidos artesanais.
           </p>
 
@@ -478,13 +478,13 @@ export default function App() {
         {/* DOCES SECTION */}
         <section id="doces" className="scroll-mt-12 space-y-4">
           <div className="flex items-center gap-4">
-            <h2 className="font-serif font-black text-3xl md:text-4xl italic text-brand-red-dark flex items-center gap-2">
-              <Flame className="w-7 h-7 text-brand-red fill-brand-red/15" />
+            <h2 className="font-serif font-extrabold text-xl md:text-2xl tracking-tight text-brand-brown uppercase flex items-center gap-2">
+              <Flame className="w-6 h-6 text-brand-red fill-brand-red/10" />
               Pizzas Doces
             </h2>
-            <div className="flex-1 h-0.5 bg-brand-brown/10 rounded" />
+            <div className="flex-1 h-px bg-brand-brown/10" />
           </div>
-          <p className="text-brand-brown/65 text-sm max-w-2xl font-medium leading-relaxed italic">
+          <p className="text-neutral-600 text-xs md:text-sm max-w-2xl font-light leading-relaxed">
             Delícias preparadas com chocolates nobres de qualidade, frutas frescas selecionadas e confeitos para fechar sua refeição da melhor forma.
           </p>
 
@@ -511,13 +511,13 @@ export default function App() {
         {/* BEIRUTES SECTION */}
         <section id="beirutes" className="scroll-mt-12 space-y-4">
           <div className="flex items-center gap-4">
-            <h2 className="font-serif font-black text-3xl md:text-4xl italic text-brand-red-dark flex items-center gap-2">
-              <Activity className="w-7 h-7 text-brand-red" />
+            <h2 className="font-serif font-extrabold text-xl md:text-2xl tracking-tight text-brand-brown uppercase flex items-center gap-2">
+              <Activity className="w-6 h-6 text-brand-red" />
               Beirutes Especiais
             </h2>
-            <div className="flex-1 h-0.5 bg-brand-brown/10 rounded" />
+            <div className="flex-1 h-px bg-brand-brown/10" />
           </div>
-          <p className="text-brand-brown/65 text-sm max-w-2xl font-medium leading-relaxed italic">
+          <p className="text-neutral-600 text-xs md:text-sm max-w-2xl font-light leading-relaxed">
             Beirutes elaborados em pão sírio artesanal leve e macio, recheado com ingredientes grelhados e prensado na chapa com muito queijo derretido.
           </p>
 
@@ -542,13 +542,13 @@ export default function App() {
         {/* BEBIDAS SECTION */}
         <section id="bebidas" className="scroll-mt-12 space-y-6">
           <div className="flex items-center gap-4">
-            <h2 className="font-serif font-black text-3xl md:text-4xl italic text-brand-red-dark flex items-center gap-2">
-              <ShoppingBag className="w-7 h-7 text-brand-red" />
+            <h2 className="font-serif font-extrabold text-xl md:text-2xl tracking-tight text-brand-brown uppercase flex items-center gap-2">
+              <ShoppingBag className="w-6 h-6 text-brand-red" />
               Bebidas
             </h2>
-            <div className="flex-1 h-0.5 bg-brand-brown/10 rounded" />
+            <div className="flex-1 h-px bg-brand-brown/10" />
           </div>
-          <p className="text-brand-brown/65 text-sm max-w-2xl font-medium leading-relaxed italic">
+          <p className="text-neutral-600 text-xs md:text-sm max-w-2xl font-light leading-relaxed">
             Bebidas geladas, refrigerantes, sucos naturais, águas minerais e cervejas selecionadas para acompanhar sua pizza.
           </p>
 
@@ -564,8 +564,8 @@ export default function App() {
 
                 return (
                   <div key={subcat} className="space-y-3.5">
-                    <h3 className="font-serif font-bold text-lg md:text-xl text-brand-brown/80 border-b border-brand-brown/10 pb-1.5 flex items-center gap-2 select-none">
-                      <span className="w-1.5 h-4 bg-brand-gold rounded-xs" />
+                    <h3 className="font-serif font-extrabold text-sm md:text-base tracking-wide text-brand-brown/80 border-b border-brand-brown/10 pb-1.5 flex items-center gap-2 select-none uppercase">
+                      <span className="w-1.5 h-4 bg-brand-red rounded-xs" />
                       {subcat}
                     </h3>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5">

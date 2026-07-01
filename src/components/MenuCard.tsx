@@ -69,10 +69,10 @@ export default function MenuCard({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 flex-wrap">
             {/* Number Code Badge */}
-            <span className="text-[10px] font-mono font-black text-brand-brown bg-brand-gold px-1.5 py-0.5 rounded-md select-none shadow-2xs">
+            <span className="text-[10px] font-sans font-extrabold text-brand-brown bg-brand-gold px-1.5 py-0.5 rounded-md select-none shadow-2xs uppercase tracking-wide">
               #{pizza.cod}
             </span>
-            <h3 className="font-sans font-extrabold text-sm md:text-base text-brand-brown leading-tight">
+            <h3 className="font-sans font-semibold text-sm md:text-base text-brand-brown leading-tight">
               {pizza.nome}
             </h3>
             {category === 'especiais' && (
@@ -83,7 +83,7 @@ export default function MenuCard({
             )}
           </div>
 
-          <p className="text-[11px] md:text-xs text-brand-brown/70 leading-normal font-sans italic mt-1.5 select-none lines-clamp-2">
+          <p className="text-[11px] md:text-xs text-brand-brown/70 leading-relaxed font-sans font-light mt-1.5 select-none lines-clamp-2">
             {pizza.ing}
           </p>
         </div>
@@ -124,8 +124,8 @@ export default function MenuCard({
               id={`add-normal-${pizza.cod}`}
               title="Adicionar Pizza Inteira ao pedido"
             >
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-brown/50 group-hover/inteira:text-white/80">Pizza Inteira</span>
-              <span className="text-xs font-black font-serif mt-0.5">{formatMoney(pizza.normal)}</span>
+              <span className="text-[9px] font-bold uppercase tracking-wider text-brand-brown/50 group-hover/inteira:text-white/80 font-serif">Pizza Inteira</span>
+              <span className="text-xs font-bold font-sans mt-0.5 text-brand-red-dark group-hover/inteira:text-white">{formatMoney(pizza.normal)}</span>
             </button>
 
             {/* Add Broto button */}
@@ -135,8 +135,8 @@ export default function MenuCard({
               id={`add-broto-${pizza.cod}`}
               title="Adicionar Pizza Broto ao pedido"
             >
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-brand-brown/50 group-hover/broto:text-white/80">Broto</span>
-              <span className="text-xs font-black font-serif mt-0.5">{formatMoney(pizza.broto)}</span>
+              <span className="text-[9px] font-bold uppercase tracking-wider text-brand-brown/50 group-hover/broto:text-white/80 font-serif">Broto</span>
+              <span className="text-xs font-bold font-sans mt-0.5 text-brand-red-dark group-hover/broto:text-white">{formatMoney(pizza.broto)}</span>
             </button>
           </div>
         )}
@@ -154,14 +154,14 @@ export default function MenuCard({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 flex-wrap">
             {/* Number Code Badge */}
-            <span className="text-[10px] font-mono font-black text-brand-brown bg-brand-gold px-1.5 py-0.5 rounded-md select-none shadow-2xs">
+            <span className="text-[10px] font-sans font-extrabold text-brand-brown bg-brand-gold px-1.5 py-0.5 rounded-md select-none shadow-2xs uppercase tracking-wide">
               #{beirute.cod}
             </span>
-            <h3 className="font-sans font-extrabold text-sm md:text-base text-brand-brown leading-tight select-none">
+            <h3 className="font-sans font-semibold text-sm md:text-base text-brand-brown leading-tight select-none">
               Beirute {beirute.nome}
             </h3>
           </div>
-          <p className="text-[11px] md:text-xs text-brand-brown/70 leading-normal font-sans italic mt-1 select-none whitespace-normal break-words">
+          <p className="text-[11px] md:text-xs text-brand-brown/70 leading-relaxed font-sans font-light mt-1 select-none whitespace-normal break-words">
             {beirute.ing}
           </p>
         </div>
@@ -169,17 +169,17 @@ export default function MenuCard({
         {/* RIGHT COLUMN: Beirute unique price action button */}
         <div className="flex flex-col gap-1 w-[125px] md:w-[145px] shrink-0 text-center">
           <div className="mb-1 leading-none">
-            <span className="block text-[8px] uppercase font-bold text-brand-brown/40 tracking-wider">
+            <span className="block text-[8px] uppercase font-bold text-brand-brown/40 tracking-wider font-serif">
               Preço único
             </span>
-            <span className="font-serif font-black text-xs md:text-sm text-brand-red-dark">
+            <span className="font-sans font-bold text-xs md:text-sm text-brand-red-dark">
               {formatMoney(beirute.preco)}
             </span>
           </div>
 
           <button
             onClick={() => onAddBeirute?.(beirute)}
-            className="flex items-center justify-center gap-1 bg-brand-red hover:bg-brand-red-dark text-cream font-bold text-[10px] md:text-xs py-1.5 px-2.5 rounded-xl cursor-pointer transition-colors shadow-2xs"
+            className="flex items-center justify-center gap-1 bg-brand-red hover:bg-brand-red-dark text-cream font-bold text-[10px] md:text-xs py-1.5 px-2.5 rounded-xl cursor-pointer transition-colors shadow-2xs font-serif uppercase tracking-wider"
             id={`add-beirute-${beirute.cod}`}
             title="Adicionar Beirute ao pedido"
           >
@@ -201,15 +201,15 @@ export default function MenuCard({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1.5 flex-wrap">
             {/* Number Code Badge */}
-            <span className="text-[10px] font-mono font-black text-brand-brown bg-brand-gold px-1.5 py-0.5 rounded-md select-none shadow-2xs">
+            <span className="text-[10px] font-sans font-extrabold text-brand-brown bg-brand-gold px-1.5 py-0.5 rounded-md select-none shadow-2xs uppercase tracking-wide">
               #{bebida.cod}
             </span>
-            <h3 className="font-sans font-extrabold text-sm md:text-base text-brand-brown leading-tight select-none">
+            <h3 className="font-sans font-semibold text-sm md:text-base text-brand-brown leading-tight select-none">
               {bebida.nome}
             </h3>
           </div>
           {/* Subcategory badge */}
-          <span className="inline-block mt-1.5 text-[9px] uppercase tracking-wider font-extrabold text-brand-brown/50 bg-brand-brown/5 px-2.5 py-0.5 rounded-full select-none">
+          <span className="inline-block mt-1.5 text-[9px] uppercase tracking-wider font-extrabold text-brand-brown/50 bg-brand-brown/5 px-2.5 py-0.5 rounded-full select-none font-serif">
             {bebida.subcategoria}
           </span>
         </div>
@@ -217,17 +217,17 @@ export default function MenuCard({
         {/* RIGHT COLUMN: Price & Action */}
         <div className="flex flex-col gap-1 w-[125px] md:w-[145px] shrink-0 text-center">
           <div className="mb-1 leading-none">
-            <span className="block text-[8px] uppercase font-bold text-brand-brown/40 tracking-wider">
+            <span className="block text-[8px] uppercase font-bold text-brand-brown/40 tracking-wider font-serif">
               Preço
             </span>
-            <span className="font-serif font-black text-xs md:text-sm text-brand-red-dark">
+            <span className="font-sans font-bold text-xs md:text-sm text-brand-red-dark">
               {formatMoney(bebida.preco)}
             </span>
           </div>
 
           <button
             onClick={() => onAddBebida?.(bebida)}
-            className="flex items-center justify-center gap-1 bg-brand-red hover:bg-brand-red-dark text-cream font-bold text-[10px] md:text-xs py-1.5 px-2.5 rounded-xl cursor-pointer transition-colors shadow-2xs"
+            className="flex items-center justify-center gap-1 bg-brand-red hover:bg-brand-red-dark text-cream font-bold text-[10px] md:text-xs py-1.5 px-2.5 rounded-xl cursor-pointer transition-colors shadow-2xs font-serif uppercase tracking-wider"
             id={`add-bebida-${bebida.cod}`}
             title="Adicionar Bebida ao pedido"
           >

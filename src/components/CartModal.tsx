@@ -236,7 +236,7 @@ export default function CartModal({
 
                     <div className="divide-y divide-brand-brown/10 max-h-[340px] overflow-y-auto pr-1">
                       {cartItems.map((item) => (
-                        <div key={item.id} className="py-4 space-y-3 border-b border-brand-brown/5">
+                        <div key={item.id} className="pt-2.5 pb-1.5 space-y-2 border-b border-brand-brown/5">
                           <div className="flex justify-between gap-4">
                             <div className="flex-1 space-y-1">
                               <h4 className="font-sans font-extrabold text-[13.5px] md:text-[14.5px] text-brand-brown leading-snug">
@@ -259,7 +259,7 @@ export default function CartModal({
                                 ) : null}
                               </h4>
                               {item.type !== 'bebida' && (
-                                <p className="text-[11px] text-brand-brown/60 italic font-sans leading-normal line-clamp-1">
+                                <p className="text-[11px] text-neutral-500 font-sans leading-relaxed whitespace-normal break-words mt-1">
                                   {item.nome2 
                                     ? `${item.ing1} | ${item.ing2}` 
                                     : item.ing1}
@@ -397,14 +397,14 @@ export default function CartModal({
                     </div>
 
                     {/* Button to add more items */}
-                    <div className="flex justify-center pt-2">
+                    <div className="flex justify-center pt-1.5 pb-1">
                       <button
                         type="button"
                         onClick={handleClose}
-                        className="w-[270px] py-2.5 flex items-center justify-center gap-1.5 bg-brand-red hover:bg-brand-red-dark text-white font-extrabold text-xs md:text-sm rounded-xl shadow-2xs hover:shadow-xs cursor-pointer transition-all"
+                        className="w-[270px] py-2 flex items-center justify-center gap-1.5 bg-brand-red hover:bg-brand-red-dark text-white font-extrabold text-xs md:text-sm rounded-xl shadow-2xs hover:shadow-xs cursor-pointer transition-all"
                         id="add-more-from-cart-global"
                       >
-                        Adicionar + Sabores
+                        Adicionar + itens
                       </button>
                     </div>
                   </div>
@@ -616,22 +616,22 @@ export default function CartModal({
 
             {/* Footer Summary & Navigation Buttons */}
             {cartItems.length > 0 && (
-              <div className="p-5 border-t border-brand-brown/10 bg-cream-2/30 space-y-3 shrink-0 w-full">
+              <div className="p-5 border-t border-white/10 bg-black text-white space-y-3 shrink-0 w-full" id="cart-footer-black">
                 {/* Calculations summary lines */}
                 <div className="space-y-1.5 text-xs">
-                  <div className="flex justify-between text-brand-brown/70 font-sans">
+                  <div className="flex justify-between text-neutral-300 font-sans">
                     <span>Subtotal</span>
-                    <span>{formatMoney(subtotal)}</span>
+                    <span className="font-semibold text-white">{formatMoney(subtotal)}</span>
                   </div>
                   {deliveryType === 'entrega' && step === 2 && (
-                    <div className="flex justify-between text-brand-brown/70 font-sans">
+                    <div className="flex justify-between text-neutral-300 font-sans">
                       <span>Taxa de entrega ({selectedBairro})</span>
-                      <span>{formatMoney(deliveryFee)}</span>
+                      <span className="font-semibold text-white">{formatMoney(deliveryFee)}</span>
                     </div>
                   )}
-                  <div className="flex justify-between text-base font-serif font-black text-brand-red pt-1.5 border-t border-brand-brown/5">
+                  <div className="flex justify-between text-base font-serif font-black text-white pt-1.5 border-t border-white/10">
                     <span>Total do seu Pedido</span>
-                    <span>{formatMoney(step === 2 ? total : subtotal)}</span>
+                    <span className="text-brand-red font-black text-lg">{formatMoney(step === 2 ? total : subtotal)}</span>
                   </div>
                 </div>
 
@@ -665,7 +665,7 @@ export default function CartModal({
                         setErrorMessage('');
                         setStep(1);
                       }}
-                      className="w-full text-center text-xs font-extrabold text-brand-brown/70 hover:text-brand-brown hover:underline py-1 cursor-pointer transition"
+                      className="w-full text-center text-xs font-extrabold text-white hover:text-brand-gold hover:underline py-1 cursor-pointer transition"
                       id="back-to-cart-step-1"
                     >
                       👈 Voltar para o Carrinho
