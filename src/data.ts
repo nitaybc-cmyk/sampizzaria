@@ -100,7 +100,7 @@ export const ESPECIAIS: Pizza[] = [
   { cod: "67", nome: "Marguerita de Búfala", ing: "Mussarela de búfala, tomate, parmesão e manjericão", normal: 79.0, broto: 55.3 },
   { cod: "68", nome: "Marguerita Especial", ing: "Cheddar, mussarela, tomate, parmesão e manjericão", normal: 77.0, broto: 53.9 },
   { cod: "69", nome: "Marroquina", ing: "Mussarela comum, mussarela de búfala e tomate alho frito", normal: 79.0, broto: 55.3 },
-  { cod: "70", nome: "Nova Cubana", ing: "Catupiry, palmito, champignon e alho frito", normal: 79.0, broto: 55.3 },
+  { cod: "70", nome: "Nova Cuiabana", ing: "Catupiry, palmito, champignon e alho frito", normal: 79.0, broto: 55.3 },
   { cod: "71", nome: "Nova Portuguesa", ing: "Peito de peru, cebola, ovos e aliche importada", normal: 77.0, broto: 53.9 },
   { cod: "72", nome: "Palmito Especial", ing: "Palmito, cheddar, mussarela, bacon e cebola", normal: 79.0, broto: 55.3 },
   { cod: "73", nome: "Pantanal Especial", ing: "Mussarela de búfala, tomate seco e rúcula", normal: 79.0, broto: 55.3 },
